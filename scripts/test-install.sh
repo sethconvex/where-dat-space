@@ -22,7 +22,7 @@ run_script restart.sh > "$TEST_ROOT/install.log" 2>&1
 [[ "$(readlink "$CODEX")" == "$ROOT/skill" ]]
 [[ -f "$APP/Contents/Resources/WhereDatSpace.icns" ]]
 [[ -d "$APP/Contents/Resources/WhereDatSpace_WhereDatSpace.bundle" ]]
-[[ "$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$APP/Contents/Info.plist")" == com.mikerosoft.where-dat-space ]]
+[[ "$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$APP/Contents/Info.plist")" == com.sethconvex.where-dat-space ]]
 codesign --verify --strict "$APP"
 "$CLI" --scan "$ROOT/skill" --json > "$TEST_ROOT/scan.json" 2> "$TEST_ROOT/scan.log"
 run_script restart.sh > "$TEST_ROOT/reinstall.log" 2>&1

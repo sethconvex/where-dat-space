@@ -29,7 +29,7 @@ stop_app() {
 }
 # Remove only our own bundle and the exact link installed with these paths.
 if [[ -e "$APP" || -L "$APP" ]]; then
-  if [[ -L "$APP" || "$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$APP/Contents/Info.plist" 2>/dev/null || true)" != 'com.mikerosoft.where-dat-space' ]]; then
+  if [[ -L "$APP" || "$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$APP/Contents/Info.plist" 2>/dev/null || true)" != 'com.sethconvex.where-dat-space' ]]; then
     echo "An unrelated item exists at $APP; leaving it alone." >&2
     exit 1
   fi

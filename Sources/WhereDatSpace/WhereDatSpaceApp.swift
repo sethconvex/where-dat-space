@@ -35,7 +35,7 @@ struct WhereDatSpaceApp: App {
                         NSApplication.shared.orderFrontStandardAboutPanel(options: [
                             .applicationName: "Where Dat Space?",
                             .applicationIcon: Mascot.image,
-                            .credits: NSAttributedString(string: "A little disk-space detective from Mikerosoft.\nmikerosoft.app")
+                            .credits: NSAttributedString(string: "A little disk-space detective.\nForked from Mike Cann's original: github.com/mikecann/where-dat-space")
                         ])
                     }
                 }

@@ -1,6 +1,6 @@
 # <img src="icons/where-dat-space.png" width="28" alt=""> Where Dat Space?
 
-A little disk-space detective for the Mac, part of [Mikerosoft](https://mikerosoft.app).
+A little disk-space detective for the Mac. Seth's fork of [Mike Cann's original](https://github.com/mikecann/where-dat-space).
 
 macOS 14 or later
 
@@ -10,7 +10,7 @@ macOS 14 or later
 
 ## What it is
 
-My 1 TB MacBook kept filling up, so I wanted the GrandPerspective / WinDirStat sort of map I remembered. Big files get big rectangles, and I can zoom in to see what's eating the disk.
+A GrandPerspective / WinDirStat style map of your disk. Big files get big rectangles, and you can zoom in to see what's eating the space.
 
 ## Using it
 
@@ -22,23 +22,17 @@ Right-click a file or folder to reveal it in Finder, copy its path or move it to
 
 ## Get it
 
-Paste this into your AI coding agent (Claude Code, Codex, Cursor...):
-
-> Fork https://github.com/mikecann/where-dat-space to my GitHub account and clone my fork (if I don't use GitHub, or want to keep my copy private, just clone it instead), then make it my own. It's one of Mike Cann's personal tools, so read the README first, change anything specific to his setup to suit mine, then help me get it running.
-
-### Or set it up by hand
-
 You'll need macOS 14 or later, Git, and Xcode or Command Line Tools with Swift 6 or later. If needed, run `xcode-select --install` first. No API keys, backend or network connection are needed to use the app.
 
 ```bash
-git clone https://github.com/mikecann/where-dat-space.git
+git clone https://github.com/sethconvex/where-dat-space.git
 cd where-dat-space
 bash restart.sh
 ```
 
 That makes a release build, installs `~/Applications/Where Dat Space.app`, links `~/.local/bin/where-dat-space` to its executable, installs the agent skill links and opens it. Add `~/.local/bin` to your PATH if it isn't already there. The script builds a macOS `.icns` from the mascot PNG and signs with the first available Apple Development identity, falling back to ad-hoc signing. It isn't notarised. If `iconutil`'s conversion service is unavailable in a sandbox, the script packs the same resized PNGs into an `.icns` directly.
 
-The bundle ID is `com.mikerosoft.where-dat-space`, with a stable designated signing requirement so privacy grants can survive rebuilds. Keep using the installed bundle when checking permissions. macOS may still ask you to re-add it after changing signing identities.
+The bundle ID is `com.sethconvex.where-dat-space`, with a stable designated signing requirement so privacy grants can survive rebuilds. Keep using the installed bundle when checking permissions. macOS may still ask you to re-add it after changing signing identities.
 
 `WHERE_DAT_SPACE_APP_PATH` and `WHERE_DAT_SPACE_CLI_PATH` override the full bundle and CLI link paths. `WHERE_DAT_SPACE_CLAUDE_SKILL_PATH` and `WHERE_DAT_SPACE_CODEX_SKILL_PATH` override the full skill link paths. `WHERE_DAT_SPACE_CODESIGN_IDENTITY` overrides the signing identity (`-` for ad-hoc). On Swift toolchains with multiple build engines, `WHERE_DAT_SPACE_BUILD_SYSTEM=native` selects the native engine if the default engine is unavailable in a sandbox. Set `WHERE_DAT_SPACE_OPEN=0` to install without opening a window. For example, to keep an install inside this clone:
 

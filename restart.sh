@@ -27,7 +27,7 @@ stop_app() {
     fi
   done < <(app_pids)
 }
-BUNDLE_ID='com.mikerosoft.where-dat-space'
+BUNDLE_ID='com.sethconvex.where-dat-space'
 export CLANG_MODULE_CACHE_PATH="$ROOT/.build/module-cache"
 export SWIFTPM_MODULECACHE_OVERRIDE="$ROOT/.build/module-cache"
 cd "$ROOT"
@@ -56,7 +56,7 @@ cat > "$STAGE/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
-<key>CFBundleIdentifier</key><string>com.mikerosoft.where-dat-space</string>
+<key>CFBundleIdentifier</key><string>com.sethconvex.where-dat-space</string>
 <key>CFBundleName</key><string>Where Dat Space</string>
 <key>CFBundleDisplayName</key><string>Where Dat Space?</string>
 <key>CFBundleExecutable</key><string>WhereDatSpace</string>
@@ -73,12 +73,15 @@ cat > "$STAGE/Contents/Info.plist" <<'PLIST'
 <key>LSHandlerRank</key><string>None</string>
 <key>LSItemContentTypes</key><array><string>public.folder</string></array>
 </dict></array>
-<key>NSHumanReadableCopyright</key><string>Copyright © 2026 Mike Cann. MIT licensed.</string>
+<key>NSHumanReadableCopyright</key><string>Based on Where Dat Space? by Mike Cann. MIT licensed.</string>
 </dict></plist>
 PLIST
-IDENTITY="${WHERE_DAT_SPACE_CODESIGN_IDENTITY:-$(security find-identity -v -p codesigning 2>/dev/null | sed -n 's/.*"\(Apple Development:[^"]*\)".*/\1/p' | head -n 1)}"
+# Pick the identity by its SHA-1 hash, not its name: a keychain can hold an
+# expired and a renewed certificate with the same name, and codesign refuses
+# an ambiguous name.
+IDENTITY="${WHERE_DAT_SPACE_CODESIGN_IDENTITY:-$(security find-identity -v -p codesigning 2>/dev/null | sed -n 's/^ *[0-9]*) \([0-9A-F]\{40\}\) "Apple Development:.*/\1/p' | head -n 1)}"
 # Keep the designated requirement stable so privacy grants can survive a rebuild.
-codesign --force --timestamp=none --sign "${IDENTITY:--}" --requirements '=designated => identifier "com.mikerosoft.where-dat-space"' "$STAGE"
+codesign --force --timestamp=none --sign "${IDENTITY:--}" --requirements '=designated => identifier "com.sethconvex.where-dat-space"' "$STAGE"
 codesign --verify --strict "$STAGE"
 # Validate both destinations before stopping or replacing anything.
 if [[ -e "$APP" || -L "$APP" ]]; then
